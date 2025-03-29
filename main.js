@@ -1,10 +1,12 @@
 let grid_container = document.querySelector(".container");
-const cells_cta = document.querySelector("#cta");
+const cells_button_cta = document.querySelector("#cta");
 
 //64 is a default grid number
 let cells_number = 64;
 
 function createDivs(cells, parent) {
+  let cellsOpacity = 0.1;
+  //creates a grid with the number of cells specified by the user
   const dimension = 960 / cells;
   const newDiv = document.createElement("div");
   newDiv.style.border = "1px solid black";
@@ -12,12 +14,21 @@ function createDivs(cells, parent) {
   newDiv.style.width = `${dimension.toString()}px`;
   parent.appendChild(newDiv);
   newDiv.addEventListener("mouseover", (e) => {
-    e.target.style.backgroundColor = "black";
+    if (cellsOpacity > 1) {
+      cellsOpacity = 1;
+    }
+    e.target.style.opacity = `${cellsOpacity}`;
+    cellsOpacity += 0.1;
+    e.target.style.backgroundColor = `rgb(${Math.floor(
+      Math.random() * 255
+    )}, ${Math.floor(Math.random() * 255)}, ${Math.floor(
+      Math.random() * 255
+    )})`;
   });
   return;
 }
 
-cells_cta.addEventListener("click", () => {
+cells_button_cta.addEventListener("click", () => {
   //saves the user input as a number
   cells_number = Number(prompt("Enter the number of cells on one side"));
 
